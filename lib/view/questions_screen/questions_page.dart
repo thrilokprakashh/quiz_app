@@ -55,7 +55,7 @@ class _questions_pageState extends State<questions_page> {
                 children: List.generate(
                   4,
                   (index) => Padding(
-                    padding: const EdgeInsets.only(top: 20),
+                    padding: EdgeInsets.only(top: 20),
                     child: InkWell(
                       onTap: () {
                         setState(() {
