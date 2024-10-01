@@ -11,6 +11,8 @@ class questions_page extends StatefulWidget {
 
 class _questions_pageState extends State<questions_page> {
   int questionIndex = 0;
+  int? selectedAns;
+  int? correctAns;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -20,7 +22,7 @@ class _questions_pageState extends State<questions_page> {
           backgroundColor: ColorConstants.black,
           actions: [
             Text(
-              "1/13",
+              "${questionIndex + 1} / ${Dummydb.questionList.length}",
               style: TextStyle(color: ColorConstants.textColor),
             ),
             SizedBox(
@@ -54,30 +56,47 @@ class _questions_pageState extends State<questions_page> {
                   4,
                   (index) => Padding(
                     padding: const EdgeInsets.only(top: 20),
-                    child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                      decoration: BoxDecoration(
+                    child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          selectedAns = index;
+                          correctAns = Dummydb.questionList[questionIndex]
+                              ["answerIndex"];
+                          if (Dummydb.questionList[questionIndex]["options"]
+                                  [selectedAns] ==
+                              correctAns) {
+                          } else {}
+                        });
+                      },
+                      child: Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                        decoration: BoxDecoration(
                           border: Border.all(
-                            color: ColorConstants.grey,
-                          ),
-                          borderRadius: BorderRadius.circular(12)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            Dummydb.questionList[questionIndex]["options"]
-                                [index],
-                            style: TextStyle(
-                                color: ColorConstants.textColor,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16),
-                          ),
-                          Icon(
-                            Icons.circle_outlined,
-                            color: ColorConstants.textColor,
-                          ),
-                        ],
+                              color: selectedAns == index
+                                  ? (selectedAns == correctAns
+                                      ? ColorConstants.rightAnsColor
+                                      : ColorConstants.wrongAnsColor)
+                                  : ColorConstants.grey),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              Dummydb.questionList[questionIndex]["options"]
+                                  [index],
+                              style: TextStyle(
+                                  color: ColorConstants.textColor,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16),
+                            ),
+                            Icon(
+                              Icons.circle_outlined,
+                              color: ColorConstants.textColor,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -90,6 +109,7 @@ class _questions_pageState extends State<questions_page> {
                 onTap: () => setState(() {
                   if (questionIndex < Dummydb.questionList.length - 1) {
                     questionIndex++;
+                    selectedAns = null;
                   }
                 }),
                 child: Container(
