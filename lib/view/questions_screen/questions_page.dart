@@ -39,9 +39,9 @@ class _questions_pageState extends State<questions_page> {
               Expanded(
                 child: Stack(
                   children: [
-                    if (selectedAns ==
-                        Dummydb.questionList[questionIndex]["answerIndex"])
-                      Lottie.asset(Animations.rightAns),
+                    // if (selectedAns ==
+                    //     Dummydb.questionList[questionIndex]["answerIndex"])
+                    Lottie.asset(Animations.rightAns),
                     Container(
                       decoration: BoxDecoration(
                         color: ColorConstants.grey,
