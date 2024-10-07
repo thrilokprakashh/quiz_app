@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+import 'package:quiz_app/models/utils/constans/animations.dart';
 import 'package:quiz_app/models/utils/constans/color_constants.dart';
 import 'package:quiz_app/view/dummyDb.dart';
 
@@ -35,20 +37,27 @@ class _questions_pageState extends State<questions_page> {
           child: Column(
             children: [
               Expanded(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: ColorConstants.grey,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Center(
-                    child: Text(
-                      Dummydb.questionList[questionIndex]["question"],
-                      style: TextStyle(
-                          color: ColorConstants.textColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18),
+                child: Stack(
+                  children: [
+                    if (selectedAns ==
+                        Dummydb.questionList[questionIndex]["answerIndex"])
+                      Lottie.asset(Animations.rightAns),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: ColorConstants.grey,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Center(
+                        child: Text(
+                          Dummydb.questionList[questionIndex]["question"],
+                          style: TextStyle(
+                              color: ColorConstants.textColor,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18),
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ),
               Column(
